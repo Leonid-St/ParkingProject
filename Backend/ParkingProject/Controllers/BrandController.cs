@@ -21,6 +21,10 @@ namespace ParkingProject.Controllers
             _context = context;
         }
 
+        public BrandController()
+        {
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Brand>> Get()
         {

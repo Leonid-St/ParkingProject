@@ -19,6 +19,10 @@ namespace ParkingProject.Services
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext _context;
 
+        public UserService()
+        {
+        }
+
         public UserService(
             UserManager<User> userManager,
             IConfiguration configuration,
@@ -116,6 +120,16 @@ namespace ParkingProject.Services
                     ExpireDate = token.ValidTo
                 }
             };
+        }
+
+        public bool MethodForTest(bool testValue)
+        {
+            if (testValue == true){
+                return true;
+            }else
+            {
+                return false;
+            }
         }
 
         public async Task<UserRegisterResponse> RegisterUserAsync(UserRegisterRequest model)

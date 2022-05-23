@@ -24,9 +24,9 @@ namespace ParkingProject.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Brand>> Get()
         {
-            var model = _context.Models.ToList();
+            var models = _context.Models.ToList();
 
-            return Ok(model);
+            return Ok(models);
         }
 
         [HttpGet("{id}")]
