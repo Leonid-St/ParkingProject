@@ -45,7 +45,7 @@ namespace ParkingProject.Controllers
         public ActionResult<Model> Post([FromBody] ModelPostRequest modelPostRequest)
         {
             var id = Guid.NewGuid();
-            var brand = _context.Brands.FirstOrDefault(e => e.Id == modelPostRequest.BrandId);
+            var brand = _context.Brands.FirstOrDefault(e => e.BrandName == modelPostRequest.BrandName);
             var model = new Model
             {
                 Id = id,

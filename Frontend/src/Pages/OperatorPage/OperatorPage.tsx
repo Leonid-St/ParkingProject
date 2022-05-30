@@ -69,9 +69,9 @@ const OperatorPage: React.FunctionComponent = () => {
             // }
         });
     }, []);
-    const handleRowInsertingModals = (e: DataGridRowInsertingEvent<IModel>) => {
+    const handleRowInsertingModels = (e: DataGridRowInsertingEvent<IModel>) => {
         if (e.data) {
-            api.models.postNewBrand({ ...e.data, brandId: e.data.brandName });
+            api.models.postNewModels({ ...e.data, });
         }
         setEditing(true);
 
@@ -141,7 +141,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                             // onRowUpdating={this.handleRowUpdating}
                                             // onRowPrepared={this.handleRowPrepared}
                                             // onEditingStart={this.onEditingStart}
-                                            // onEditCanceling={() => this.setState({ editing: true })}
+                                            //onEditCanceling={() => this.setState({ editing: true })}
                                             allowColumnResizing
                                         // onEditorPreparing={this.onEditorPreparing}
                                         >
@@ -190,13 +190,13 @@ const OperatorPage: React.FunctionComponent = () => {
                                 <Stack gap={3} direction="vertical" className="justify-content-center ">
                                     <DataGrid
                                         className={"opacity"}
-                                        dataSource={dataSourceModels}
+                                        dataSource={modelsList}
                                         keyExpr="id"
                                         focusedRowEnabled
                                         showBorders
                                         rowAlternationEnabled
                                         // className={styles['receivers-grid']}
-                                        onRowInserting={handleRowInsertingModals}
+                                        onRowInserting={handleRowInsertingModels}
                                         // onRowRemoved={this.handleRowRemoving}
                                         onRowUpdating={() => setEditing(true)}
                                         // onRowPrepared={this.handleRowPrepared}

@@ -47,7 +47,7 @@ class ModelEndpoint {
     getById(ModelId: string) {
         return get<IBrand | null>(`${stringConnection}/api/Model/${ModelId}`);
     }
-    postNewBrand(model: IModel) {
+    postNewModels(model: IModel) {
         return post<IModel, IModel>(`${stringConnection}/api/Model`, model);
     }
 
