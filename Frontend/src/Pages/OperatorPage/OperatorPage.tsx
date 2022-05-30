@@ -75,9 +75,29 @@ const OperatorPage: React.FunctionComponent = () => {
         }
         setEditing(true);
 
-    }; const handleRowInsertingBrand = (e: DataGridRowInsertingEvent<IBrand>) => {
+    };
+
+    const handleRowInsertingBrand = (e: DataGridRowInsertingEvent<IBrand>) => {
         if (e.data) {
             api.brand.postNewBrand(e.data);
+        }
+
+    };
+    const handleRowInsertingCars = (e: DataGridRowInsertingEvent<ICar>) => {
+        if (e.data) {
+            api.car.postNewCar(e.data);
+        }
+
+    };
+    const handleRowRemovingModels = (e: DataGridRowInsertingEvent<IModel>) => {
+        if (e.data) {
+            api.models._deleteModels(e.data);
+        }
+
+    };
+    const handleRowRemovingBrands = (e: DataGridRowInsertingEvent<IBrand>) => {
+        if (e.data) {
+            api.brand._deleteBrand(e.data);
         }
 
     };
@@ -137,7 +157,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                             rowAlternationEnabled
                                             // className={styles['receivers-grid']}
                                             onRowInserting={handleRowInsertingBrand}
-                                            // onRowRemoved={this.handleRowRemoving}
+                                            onRowRemoved={handleRowRemovingBrands}
                                             // onRowUpdating={this.handleRowUpdating}
                                             // onRowPrepared={this.handleRowPrepared}
                                             // onEditingStart={this.onEditingStart}
@@ -197,7 +217,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         rowAlternationEnabled
                                         // className={styles['receivers-grid']}
                                         onRowInserting={handleRowInsertingModels}
-                                        // onRowRemoved={this.handleRowRemoving}
+                                        onRowRemoved={handleRowRemovingModels}
                                         onRowUpdating={() => setEditing(true)}
                                         // onRowPrepared={this.handleRowPrepared}
                                         onEditingStart={() => setEditing(false)}
@@ -268,7 +288,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         showBorders
                                         rowAlternationEnabled
                                         // className={styles['receivers-grid']}
-                                        // onRowInserting={this.handleRowInserting}
+                                        onRowInserting={handleRowInsertingCars}
                                         // onRowRemoved={this.handleRowRemoving}
                                         // onRowUpdating={this.handleRowUpdating}
                                         // onRowPrepared={this.handleRowPrepared}
@@ -299,17 +319,21 @@ const OperatorPage: React.FunctionComponent = () => {
                                         >
                                             <RequiredRule />
                                         </Column>
-                                        <Column dataField="brandId"
-                                            caption="brandId"
+                                        <Column dataField="brandName"
+                                            caption="brandName"
                                             allowSorting={false}>
+                                            <Lookup dataSource={brandsList}
+                                                displayExpr="brandName"
+                                                valueExpr="brandId"
+                                            />
                                             <RequiredRule />
                                         </Column>
-                                        <Column dataField="modelId"
-                                            caption="modelId"
+                                        <Column dataField="modelName"
+                                            caption="modelName"
                                             allowSorting={false}>
-                                            {/* <Lookup dataSource={tasks}
-                        displayExpr="name"
-                        valueExpr="id" /> */}
+                                            <Lookup dataSource={modelsList}
+                                                displayExpr="modelName"
+                                                valueExpr="id" />
                                             <RequiredRule />
                                         </Column>
                                         <Column

@@ -6,6 +6,6 @@ interface IModel {
 
     brandName: string;
 
-    ModelName: string;
+    modelName: string;
 }
 export default IModel;

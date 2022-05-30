@@ -65,15 +65,16 @@ namespace ParkingProject.Controllers
             return Ok(model);
         }
 
-      /*  public ActionResult Edit(Model newModal)
+       /* [HttpPost("EDIT")]
+        public ActionResult<Model> Edit(Model newModal)
         {
             var model = _context.Models.FirstOrDefault(e => e.Id == newModal.Id);
             if (model != null)
             {
-                _context.Models.Update(model);
+                _context.Models.Update(newModal);
                 return Ok();
             }
-            return NoContent();
+            return BadRequest();
         }*/
 
         [HttpDelete("{id}")]
@@ -88,7 +89,7 @@ namespace ParkingProject.Controllers
             _context.Models.Remove(model);
             _context.SaveChanges();
 
-            return NoContent();
+            return Ok();
         }
     }
 }

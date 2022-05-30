@@ -7,7 +7,7 @@ import IParking from "../Models/IParking";
 import IRegistryRequest from "../Models/IRegistryRequest";
 import IRegistryResponse from "../Models/IRegistryResponse";
 import IUserInfo from "../Models/IUserInfo";
-import { get, post } from "./fetchWrap";
+import { get, post, _delete } from "./fetchWrap";
 
 const stringConnection: string = "https://localhost:5000";
 
@@ -36,6 +36,11 @@ class BrandEndpoint {
     postNewBrand(brand: IBrand) {
         return post<IBrand, IBrand>(`${stringConnection}/api/Brand`, brand);
     }
+    
+
+    _deleteBrand(brand: IBrand) {
+        return _delete(`${stringConnection}/api/Brand/${brand.id}`);
+    } 
 
 }
 
@@ -45,11 +50,17 @@ class ModelEndpoint {
         return get<Array<IModel>>(`${stringConnection}/api/Model`);
     }
     getById(ModelId: string) {
-        return get<IBrand | null>(`${stringConnection}/api/Model/${ModelId}`);
+        return get<IModel | null>(`${stringConnection}/api/Model/${ModelId}`);
     }
     postNewModels(model: IModel) {
         return post<IModel, IModel>(`${stringConnection}/api/Model`, model);
     }
+    updateModel(model:IModel) {
+        return post<IModel, IModel>(`${stringConnection}/api/Model`, model);
+    }
+    _deleteModels(model: IModel) {
+        return _delete(`${stringConnection}/api/Model/${model.id}`);
+    } 
 
 }
 
@@ -61,7 +72,7 @@ class CarEndpoint {
     getById(carId: string) {
         return get<ICar | null>(`${stringConnection}/api/Car/${carId}`);
     }
-    postNewBrand(car: ICar) {
+    postNewCar(car: ICar) {
         return post<ICar, ICar>(`${stringConnection}/api/Car`, car);
     }
 
@@ -78,6 +89,9 @@ class ParkingEndpoint {
     }
     postNewBrand(parking: IParking) {
         return post<IParking, IParking>(`${stringConnection}/api/Parking`, parking);
+    }
+    deleteBrand(parking: IParking) {
+        return _delete(`${stringConnection}/api/Parking/${parking.id}`);
     }
 
 }
