@@ -28,14 +28,12 @@ const Login: React.FunctionComponent = () => {
                     dispatch(setToken(response?.token));
                     dispatch(setIsOperator(response?.isOperator));
                     localStorage.setItem("token", JSON.stringify(response.token));
-                    if (!response?.isOperator) {
-                        let userInfo: Promise<IUserInfo | null> = api.auth.getUserInfo();
-                        userInfo.then(user => {
-                            if (user) {
-                                dispatch(setUser(user));
-                            }
-                        });
-                    }
+                    let userInfo: Promise<IUserInfo | null> = api.auth.getUserInfo();
+                    userInfo.then(user => {
+                        if (user) {
+                            dispatch(setUser(user));
+                        }
+                    });
                     history.push("/home");
                 }
 
@@ -57,14 +55,14 @@ const Login: React.FunctionComponent = () => {
                         <Form.Label>Почта</Form.Label>
                         <Form.Control type="email" placeholder="Введите почту"
                             name="email"
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={(e: any) => setEmail(e.target.value)}
                             value={email}
                         />
                     </Form.Group>
                     <Form.Group className="aqua shadow mb-3" controlId="formBasicPassword">
                         <Form.Label>Пароль</Form.Label>
                         <Form.Control type="password" placeholder="Введите пароль"
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={(e: any) => setPassword(e.target.value)}
                             value={password}
                             name="password"
                         />

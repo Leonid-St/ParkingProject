@@ -12,13 +12,13 @@ namespace ParkingProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DriverController : Controller
+    public class UserController : Controller
     {
         private readonly IUserService _userService;
         private readonly ApplicationContext _context;
 
         // TODO: inject Logging
-        public DriverController(IUserService userService, ApplicationContext context)
+        public UserController(IUserService userService, ApplicationContext context)
         {
             _userService = userService;
             _context = context;
@@ -45,8 +45,8 @@ namespace ParkingProject.Controllers
         }
 
         // POST: DriverController/Create
-       /* [HttpPost]
-        public ActionResult<User> Post([FromBody] UserRegisterRequest driverRegisterRequest)
+        /*[HttpPost]
+        public ActionResult<User> Post([FromBody] UserReRequest driverRegisterRequest)
         {
             var car = _context.Cars.FirstOrDefault(c => c.Id == driverRegisterRequest.CarBrandId);
             var carList = new List<Car>();

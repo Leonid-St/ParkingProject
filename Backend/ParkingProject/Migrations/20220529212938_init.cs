@@ -210,7 +210,9 @@ namespace ParkingProject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ModelName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParkingCost = table.Column<float>(type: "real", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -251,6 +253,7 @@ namespace ParkingProject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -270,7 +273,9 @@ namespace ParkingProject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParkingStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DateEntry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpectedDateExit = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -290,7 +295,7 @@ namespace ParkingProject.Migrations
             migrationBuilder.InsertData(
                 table: "Operators",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("7c339ae0-91e2-4ec1-8b67-709fe391f80c"), 0, "2cad9548-2ce6-466c-8d19-aac15da6c57b", null, false, false, null, "Leonid", null, null, "1234", null, null, false, null, false, null });
+                values: new object[] { new Guid("779d70fe-efce-42fb-b2b4-f660a80d2dc5"), 0, "b4a8939e-49cb-49de-89f1-caa92a49e6c9", null, false, false, null, "Leonid", null, null, "1234", null, null, false, null, false, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

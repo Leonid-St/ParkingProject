@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ParkingProject.Models
 {
-    public class ModalPostRequest
+    public class ModelPostRequest
     {
-        public Guid ?BrandId { get; set; }
+        public Guid BrandId { get; set; }
 
         public string ModelName { get; set; }
     }

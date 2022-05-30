@@ -7,12 +7,12 @@ import { Switch } from "react-router";
 import HomeMain from "../../Components/HomeMain";
 import { useAppSelector } from "../../redux/hooks";
 import OperatorPage from "../OperatorPage/OperatorPage";
+import { Stack } from "react-bootstrap";
 export const Home: React.FunctionComponent = () => {
     const isOperator = useAppSelector(state => state.user.IsOperator);
     console.log(isOperator);
     return (
         <>
-            {/* {isOperator ? (<></>) : (<NavbarHome />)} */}
             <NavbarHome />
             <Switch>
                 {isOperator ? (<><OperatorPage /></>) :
@@ -23,6 +23,9 @@ export const Home: React.FunctionComponent = () => {
                     </>
                 }
             </Switch>
+
+            {/* {isOperator ? (<></>) : (<NavbarHome />)} */}
+
 
         </>
     );

@@ -42,16 +42,23 @@ namespace ParkingProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Model> Post([FromBody] ModalPostRequest modalPostRequest)
+        public ActionResult<Model> Post([FromBody] ModelPostRequest modelPostRequest)
         {
             var id = Guid.NewGuid();
+            var brand = _context.Brands.FirstOrDefault(e => e.Id == modelPostRequest.BrandId);
             var model = new Model
             {
                 Id = id,
-                ModelName = modalPostRequest.ModelName,
-                BrandId = modalPostRequest?.BrandId,
+                ModelName = modelPostRequest.ModelName,
+                BrandId = brand.Id,
+                BrandName = brand.BrandName,
             };
-
+            if (brand.ListModels == null)
+            {
+                brand.ListModels = new List<Model>();
+            };
+            brand.ListModels.Add(model);
+            _context.Update(brand);
             _context.Models.Add(model);
             _context.SaveChanges();
 

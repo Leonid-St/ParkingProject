@@ -22,7 +22,8 @@ const App: React.FC = () => {
                     if (user) {
                         console.log(user);
                         dispatch(setUser(user));
-                        dispatch(setIsOperator(user?.isOperator));
+                        if (user?.isOperator)
+                            dispatch(setIsOperator(user?.isOperator));
                         setIsLoading(false);
                     }
                 });
@@ -34,7 +35,7 @@ const App: React.FC = () => {
             //history.push("/home");
             setIsLoading(false);
         }
-    }, []);
+    }, [dispatch]);
 
     if (isLoading) {
         return (

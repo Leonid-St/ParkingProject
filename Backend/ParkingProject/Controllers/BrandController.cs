@@ -21,9 +21,6 @@ namespace ParkingProject.Controllers
             _context = context;
         }
 
-        public BrandController()
-        {
-        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Brand>> Get()
@@ -81,7 +78,9 @@ namespace ParkingProject.Controllers
             {
                 return NotFound();
             }
-
+            var models = _context.Models.Where(e => e.BrandId == brand.Id);
+            _context.Models.RemoveRange(models);
+            _context.SaveChanges();
             _context.Brands.Remove(brand);
             _context.SaveChanges();
 

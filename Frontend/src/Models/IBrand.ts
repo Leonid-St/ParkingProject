@@ -1,7 +1,11 @@
-export default interface IBrand {
+import IModel from "./IModel";
+
+interface IBrand {
     id: string;
 
-    brandId: string;
+    brandName: string;
 
-    ModelName: string;
+    listModel: Array<IModel>;
 }
+
+export default IBrand;

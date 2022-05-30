@@ -28,6 +28,8 @@ namespace ParkingProject.Database
 
         public DbSet<Operator> Operators { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

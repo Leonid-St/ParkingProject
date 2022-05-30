@@ -11,7 +11,11 @@ namespace ParkingProject.Database
 
         public Guid BrandId { get; set; }
 
+        public string BrandName { get; set; }
+
         public Guid ModelId { get; set; }
+
+        public string ModelName { get; set; }
 
         public float ParkingCost { get; set; }
 

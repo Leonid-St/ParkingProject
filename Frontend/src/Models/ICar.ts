@@ -1,4 +1,4 @@
-export default interface ICar {
+interface ICar {
     id: string;
 
     brandId: string
@@ -6,5 +6,5 @@ export default interface ICar {
     modelId: string;
 
     ParkingCost: number;
-
 }
+export default ICar;

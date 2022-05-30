@@ -44,12 +44,16 @@ namespace ParkingProject.Controllers
         public ActionResult<Parking> Post([FromBody] ParkingRequest queryParking)
         {
             var id = Guid.NewGuid();
+            var car = _context.Cars.FirstOrDefault(e => e.Id == queryParking.CarId);
+            var user = _context.Users.FirstOrDefault(e => e.Id == queryParking.UserId);
             var parking = new Parking {
                 Id = id,
                 CarId = queryParking.CarId,
                 UserId = queryParking.UserId,
+                UserName = user.UserName,
                 DateEntry = DateTime.Now,
                 ExpectedDateExit = queryParking.ExpectedDateExit,
+                //ParkingState = { Id = Guid.NewGuid(), Inside = true},
             };
 
             _context.Parkings.Add(parking);

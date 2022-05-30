@@ -143,8 +143,14 @@ namespace ParkingProject.Migrations
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ModelId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ModelName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("ParkingCost")
                         .HasColumnType("real");
@@ -189,6 +195,9 @@ namespace ParkingProject.Migrations
 
                     b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModelName")
                         .HasColumnType("nvarchar(max)");
@@ -261,9 +270,9 @@ namespace ParkingProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7c339ae0-91e2-4ec1-8b67-709fe391f80c"),
+                            Id = new Guid("779d70fe-efce-42fb-b2b4-f660a80d2dc5"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2cad9548-2ce6-466c-8d19-aac15da6c57b",
+                            ConcurrencyStamp = "b4a8939e-49cb-49de-89f1-caa92a49e6c9",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Leonid",
@@ -285,6 +294,9 @@ namespace ParkingProject.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CarName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DateEntry")
                         .HasColumnType("datetime2");
 
@@ -296,6 +308,9 @@ namespace ParkingProject.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
