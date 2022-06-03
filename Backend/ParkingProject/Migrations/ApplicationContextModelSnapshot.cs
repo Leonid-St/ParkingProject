@@ -126,7 +126,7 @@ namespace ParkingProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BrandName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -155,7 +155,7 @@ namespace ParkingProject.Migrations
                     b.Property<float>("ParkingCost")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -270,9 +270,9 @@ namespace ParkingProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("779d70fe-efce-42fb-b2b4-f660a80d2dc5"),
+                            Id = new Guid("48f8274e-dfd6-4df8-b0ef-65b0180473cd"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4a8939e-49cb-49de-89f1-caa92a49e6c9",
+                            ConcurrencyStamp = "0ea9616b-2e03-4a62-a97f-d8305b9780cf",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Leonid",
@@ -302,6 +302,9 @@ namespace ParkingProject.Migrations
 
                     b.Property<DateTime?>("ExpectedDateExit")
                         .HasColumnType("datetime2");
+
+                    b.Property<float>("ParkingCost")
+                        .HasColumnType("real");
 
                     b.Property<Guid?>("ParkingStateId")
                         .HasColumnType("uniqueidentifier");
@@ -485,7 +488,9 @@ namespace ParkingProject.Migrations
                 {
                     b.HasOne("ParkingProject.Database.User", null)
                         .WithMany("Cars")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ParkingProject.Database.DateEntryAndExit", b =>

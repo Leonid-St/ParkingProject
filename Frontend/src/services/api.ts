@@ -1,3 +1,4 @@
+import CarPostRequest from "../Models/CarPostRequest";
 import IBrand from "../Models/IBrand";
 import ICar from "../Models/ICar";
 import ILoginRequest from "../Models/ILoginRequest";
@@ -7,6 +8,7 @@ import IParking from "../Models/IParking";
 import IRegistryRequest from "../Models/IRegistryRequest";
 import IRegistryResponse from "../Models/IRegistryResponse";
 import IUserInfo from "../Models/IUserInfo";
+import IRequestPostModel from "../Models/RequestPostModel";
 import { get, post, _delete } from "./fetchWrap";
 
 const stringConnection: string = "https://localhost:5000";
@@ -52,8 +54,8 @@ class ModelEndpoint {
     getById(ModelId: string) {
         return get<IModel | null>(`${stringConnection}/api/Model/${ModelId}`);
     }
-    postNewModels(model: IModel) {
-        return post<IModel, IModel>(`${stringConnection}/api/Model`, model);
+    postNewModels(model: IRequestPostModel) {
+        return post<IRequestPostModel, IModel>(`${stringConnection}/api/Model`, model);
     }
     updateModel(model:IModel) {
         return post<IModel, IModel>(`${stringConnection}/api/Model`, model);
@@ -72,8 +74,8 @@ class CarEndpoint {
     getById(carId: string) {
         return get<ICar | null>(`${stringConnection}/api/Car/${carId}`);
     }
-    postNewCar(car: ICar) {
-        return post<ICar, ICar>(`${stringConnection}/api/Car`, car);
+    postNewCar(car: CarPostRequest) {
+        return post<CarPostRequest, ICar>(`${stringConnection}/api/Car`, car);
     }
 
 }

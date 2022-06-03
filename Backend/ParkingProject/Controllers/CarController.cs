@@ -44,16 +44,16 @@ namespace ParkingProject.Controllers
         public ActionResult<Car> Post([FromBody] CarPostRequest carPostRequest)
         {
             var id = Guid.NewGuid();
-            var brand = _context.Brands.FirstOrDefault(e => e.Id == carPostRequest.BrandId);
-            var model = _context.Models.FirstOrDefault(e => e.Id == carPostRequest.ModelId);
+            var brand = _context.Brands.FirstOrDefault(e => e.Name == carPostRequest.BrandName);
+            var model = _context.Models.FirstOrDefault(e => e.ModelName == carPostRequest.ModelName);
             var car = new Car
             {
                 Id = id,
-                BrandId = carPostRequest.BrandId,
-                BrandName = brand.BrandName,
-                ModelId = carPostRequest.ModelId,
+                BrandId = brand.Id,
+                BrandName = brand.Name,
+                ModelId = model.Id,
                 ModelName = model.ModelName,
-                ParkingCost = carPostRequest.ParkingCost,
+                UserId = carPostRequest.UserId,
             };
 
             _context.Cars.Add(car);

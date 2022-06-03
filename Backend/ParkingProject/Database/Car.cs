@@ -9,11 +9,13 @@ namespace ParkingProject.Database
     {
         public Guid Id { get; set; }
 
+        public Guid UserId { get; set; }
+
         public Guid BrandId { get; set; }
 
-        public string BrandName { get; set; }
-
         public Guid ModelId { get; set; }
+
+        public string BrandName { get; set; }
 
         public string ModelName { get; set; }
 

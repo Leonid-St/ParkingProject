@@ -146,19 +146,11 @@ namespace ParkingProject.Services
                     Errors = new[] { "Confirm password doesn't match the password" }
                 };
             }
-            var listCars = new List<Car>();
-            if (model.CarId != null)
-            {
-                Car car = null;
-                car = _context.Cars.FirstOrDefault(e => e.Id == model.CarId);
-                listCars.Add(car);
-            }
 
             var identityUser = new User
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                Cars = listCars,
             };
 
             var result = await _userManager.CreateAsync(identityUser, model.Password);

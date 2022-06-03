@@ -8,6 +8,7 @@ import HomeMain from "../../Components/HomeMain";
 import { useAppSelector } from "../../redux/hooks";
 import OperatorPage from "../OperatorPage/OperatorPage";
 import { Stack } from "react-bootstrap";
+import PersonalPage from "../Personal/PersonalPage";
 export const Home: React.FunctionComponent = () => {
     const isOperator = useAppSelector(state => state.user.IsOperator);
     console.log(isOperator);
@@ -15,11 +16,13 @@ export const Home: React.FunctionComponent = () => {
         <>
             <NavbarHome />
             <Switch>
+                <Route path="/home/PersonalPage" render={() => <PersonalPage />} />
                 {isOperator ? (<><OperatorPage /></>) :
                     <>
                         <Route render={() => {
                             return (<HomeMain />);
                         }}></Route>
+
                     </>
                 }
             </Switch>

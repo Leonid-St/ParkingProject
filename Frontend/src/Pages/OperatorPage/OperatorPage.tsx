@@ -27,6 +27,7 @@ import "./style.css";
 import DataGridRowInsertingEvent from "../../Models/DataGridInsertingEvents";
 import CustomStore from "devextreme/data/custom_store";
 import DataSource from "devextreme/data/data_source";
+import IRequestPostModel from "../../Models/RequestPostModel";
 
 const OperatorPage: React.FunctionComponent = () => {
 
@@ -71,7 +72,10 @@ const OperatorPage: React.FunctionComponent = () => {
     }, []);
     const handleRowInsertingModels = (e: DataGridRowInsertingEvent<IModel>) => {
         if (e.data) {
-            api.models.postNewModels({ ...e.data, });
+            console.log(e.data);
+            api.models.postNewModels({ brandName: (e as any).data.brandName, modelName: (e as any).data.modelName }).then((e) => {
+                console.log(e);
+            });
         }
         setEditing(true);
 
@@ -83,12 +87,12 @@ const OperatorPage: React.FunctionComponent = () => {
         }
 
     };
-    const handleRowInsertingCars = (e: DataGridRowInsertingEvent<ICar>) => {
-        if (e.data) {
-            api.car.postNewCar(e.data);
-        }
+    // const handleRowInsertingCars = (e: DataGridRowInsertingEvent<ICar>) => {
+    //     if (e.data) {
+    //         api.car.postNewCar(e.data);
+    //     }
 
-    };
+    // };
     const handleRowRemovingModels = (e: DataGridRowInsertingEvent<IModel>) => {
         if (e.data) {
             api.models._deleteModels(e.data);
@@ -101,6 +105,19 @@ const OperatorPage: React.FunctionComponent = () => {
         }
 
     };
+    const onEditingStartCars = (e: any) => {
+        console.log(e);
+        console.log(e.data);
+    }
+    const onEditorPreparingCars = (e: any) => {
+        console.log(e);
+        console.log(e.data);
+        console.log(a);
+
+    }
+    const onValueChangedLookupCars = (e: any) => {
+        console.log(e);
+    }
     const dataSourceModels = useMemo(() => {
         const store = new CustomStore({
             key: "id",
@@ -119,6 +136,7 @@ const OperatorPage: React.FunctionComponent = () => {
         // handleRowRemoving,
         // handleRowUpdating,
     ]);
+    let a: any;
     const dataSourceBrands = useMemo(() => {
         const store = new CustomStore({
             key: "id",
@@ -160,10 +178,10 @@ const OperatorPage: React.FunctionComponent = () => {
                                             onRowRemoved={handleRowRemovingBrands}
                                             // onRowUpdating={this.handleRowUpdating}
                                             // onRowPrepared={this.handleRowPrepared}
-                                            // onEditingStart={this.onEditingStart}
+                                            //onEditingStart={this.onEditingStart}
                                             //onEditCanceling={() => this.setState({ editing: true })}
                                             allowColumnResizing
-                                        // onEditorPreparing={this.onEditorPreparing}
+                                        /// onEditorPreparing={this.onEditorPreparing}
                                         >
                                             <SearchPanel visible placeholder="Искать..." width={400} />
                                             <Editing
@@ -187,17 +205,17 @@ const OperatorPage: React.FunctionComponent = () => {
                                             >
                                             </Column>
                                             <Column
-                                                dataField="brandName"
-                                                caption="brandName"
+                                                dataField="name"
+                                                caption="name"
                                                 allowSorting={false}
 
                                             >
                                                 <RequiredRule />
                                             </Column>
-                                            <Column dataField="listModels"
+                                            {/* <Column dataField="listModels"
                                                 caption="listModels"
                                                 allowSorting={false}>
-                                            </Column>
+                                            </Column> */}
                                             {/* <MasterDetail enabled component={RolesInfo} /> */}
                                             <Scrolling useNative />
                                         </DataGrid>
@@ -206,7 +224,7 @@ const OperatorPage: React.FunctionComponent = () => {
                         },
                         {
                             label: "Modals",
-                            component: <> <Form>
+                            component: <>
                                 <Stack gap={3} direction="vertical" className="justify-content-center ">
                                     <DataGrid
                                         className={"opacity"}
@@ -246,23 +264,25 @@ const OperatorPage: React.FunctionComponent = () => {
 
                                         >
                                         </Column>
-                                        <Column
+                                        {/* <Column
                                             formItem={{ visible: false }}
                                             dataField="brandId"
                                             caption="brandId"
                                             allowSorting={false}>
                                             <RequiredRule />
-                                        </Column>
+                                        </Column> */}
                                         <Column
                                             dataField="brandName"
                                             caption="brandName"
-                                        // allowSorting={true}
+                                            allowSorting={true}
                                         >
+                                            <Lookup dataSource={brandsList}
+                                                displayExpr="name"
+                                                valueExpr="name"
+                                            //onValueChanged={onValueChangedLookupCars}
+
+                                            />
                                             <RequiredRule />
-                                            {/* <Lookup dataSource={brandsList}
-                                                displayExpr="brandName" 
-                                                valueExpr="brandId"
-                                            /> */}
                                         </Column>
                                         <Column dataField="modelName"
                                             caption="modelName"
@@ -273,7 +293,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         <Scrolling useNative />
                                     </DataGrid>
                                 </Stack>
-                            </Form></>,
+                            </>,
                         },
                         {
                             label: "Cars",
@@ -288,14 +308,14 @@ const OperatorPage: React.FunctionComponent = () => {
                                         showBorders
                                         rowAlternationEnabled
                                         // className={styles['receivers-grid']}
-                                        onRowInserting={handleRowInsertingCars}
+                                        //onRowInserting={handleRowInsertingCars}
                                         // onRowRemoved={this.handleRowRemoving}
                                         // onRowUpdating={this.handleRowUpdating}
-                                        // onRowPrepared={this.handleRowPrepared}
-                                        // onEditingStart={this.onEditingStart}
+                                        //onRowPrepared={handleRowPreparedCars}
+                                        onEditingStart={onEditingStartCars}
                                         // onEditCanceling={() => this.setState({ editing: true })}
                                         allowColumnResizing
-                                    // onEditorPreparing={this.onEditorPreparing}
+                                        onEditorPreparing={onEditorPreparingCars}
                                     >
                                         <SearchPanel visible placeholder="Искать..." width={400} />
                                         <Editing
@@ -323,8 +343,9 @@ const OperatorPage: React.FunctionComponent = () => {
                                             caption="brandName"
                                             allowSorting={false}>
                                             <Lookup dataSource={brandsList}
-                                                displayExpr="brandName"
-                                                valueExpr="brandId"
+                                                displayExpr="name"
+                                                valueExpr="name"
+                                                ref={a}
                                             />
                                             <RequiredRule />
                                         </Column>
@@ -333,7 +354,8 @@ const OperatorPage: React.FunctionComponent = () => {
                                             allowSorting={false}>
                                             <Lookup dataSource={modelsList}
                                                 displayExpr="modelName"
-                                                valueExpr="id" />
+                                                valueExpr="modelName"
+                                            />
                                             <RequiredRule />
                                         </Column>
                                         <Column
@@ -400,6 +422,9 @@ const OperatorPage: React.FunctionComponent = () => {
                                         <Column dataField="carId"
                                             caption="carId"
                                             allowSorting={false}>
+                                            <Lookup dataSource={carsList}
+                                                displayExpr="id"
+                                                valueExpr="id" />
                                             <RequiredRule />
                                         </Column>
                                         <Column dataField="dateEntry"
@@ -413,9 +438,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         <Column dataField="expectedDateExit"
                                             caption="expectedDateExit"
                                             allowSorting={false}>
-                                            {/* <Lookup dataSource={callCenters} 
-                    displayExpr="name"
-                     valueExpr="id" /> */}
+
                                             <RequiredRule />
                                         </Column>
                                         <Column

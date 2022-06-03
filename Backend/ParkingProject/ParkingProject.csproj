@@ -39,4 +39,6 @@
     <AdditionalFiles Include="..\.stylecop.json" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties _1_1_4_1stylecop_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>

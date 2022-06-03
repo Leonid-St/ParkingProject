@@ -17,6 +17,7 @@ const NavbarHome: React.FunctionComponent = () => {
                             <Nav>
                                 {email ? <NavDropdown title={email} id="collasible-nav-dropdown">
                                     <NavDropdown.Item href="/auth/Logout">Выйти</NavDropdown.Item>
+                                    <NavDropdown.Item href="/home/PersonalPage ">Личный кабинет</NavDropdown.Item>
                                 </NavDropdown> : <><Nav.Link href="/auth/login">Войти</Nav.Link>
                                     <Nav.Link href="/auth/register">Зарегестрироваться</Nav.Link> </>}
                             </Nav>

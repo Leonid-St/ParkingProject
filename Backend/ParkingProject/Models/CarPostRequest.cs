@@ -7,10 +7,11 @@ namespace ParkingProject.Models
 {
     public class CarPostRequest
     {
-        public Guid BrandId { get; set; }
+        public Guid UserId { get; set; }
 
-        public Guid ModelId { get; set; }
+        public string BrandName { get; set; }
 
-        public float ParkingCost { get; set; }
+        public string ModelName { get; set; }
+
     }
 }

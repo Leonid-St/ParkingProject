@@ -19,6 +19,8 @@ namespace ParkingProject.Database
 
         public ParkingState ? ParkingState { get; set; }
 
+        public float ParkingCost { get; set; }
+
         public DateTime ? DateEntry { get; set; }
 
         public DateTime? ExpectedDateExit { get; set; }

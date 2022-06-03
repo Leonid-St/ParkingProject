@@ -85,22 +85,6 @@ const Registry: React.FunctionComponent = () => {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Бред машины</Form.Label>
-                        <Form.Control type="text" placeholder="Введите бред машины"
-                            name="username"
-                            onChange={e => setBrandAuto(e.target.value)}
-                            value={brandAuto}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Марка</Form.Label>
-                        <Form.Control type="text" placeholder="Введите модель машины"
-                            name="username"
-                            onChange={e => setModelAuto(e.target.value)}
-                            value={modelAuto}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
                         <Form.Label className='aqua shadow'>Пароль</Form.Label>
                         <Form.Control type="password" placeholder="Введите пароль"
                             name="password"

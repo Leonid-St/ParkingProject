@@ -3,7 +3,7 @@ import IModel from "./IModel";
 interface IBrand {
     id: string;
 
-    brandName: string;
+    name: string;
 
     listModel: Array<IModel>;
 }

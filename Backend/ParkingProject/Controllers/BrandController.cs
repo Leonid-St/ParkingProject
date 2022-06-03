@@ -49,7 +49,7 @@ namespace ParkingProject.Controllers
             var brand = new Brand
             {
                 Id = id,
-                BrandName = brandPostRequest.BrandName,
+                Name = brandPostRequest.Name,
                 ListModels = brandPostRequest?.ListModels,
             };
 
