@@ -8,6 +8,7 @@ import IParking from "../Models/IParking";
 import IRegistryRequest from "../Models/IRegistryRequest";
 import IRegistryResponse from "../Models/IRegistryResponse";
 import IUserInfo from "../Models/IUserInfo";
+import IParkingRequest from "../Models/ParckingRequest";
 import IRequestPostModel from "../Models/RequestPostModel";
 import { get, post, _delete } from "./fetchWrap";
 
@@ -89,10 +90,10 @@ class ParkingEndpoint {
     getById(carId: string) {
         return get<IParking | null>(`${stringConnection}/api/Parking/${carId}`);
     }
-    postNewBrand(parking: IParking) {
-        return post<IParking, IParking>(`${stringConnection}/api/Parking`, parking);
+    postNewParking(parking: IParkingRequest) {
+        return post<IParkingRequest, IParking>(`${stringConnection}/api/Parking`, parking);
     }
-    deleteBrand(parking: IParking) {
+    deleteParking(parking: IParking) {
         return _delete(`${stringConnection}/api/Parking/${parking.id}`);
     }
 
