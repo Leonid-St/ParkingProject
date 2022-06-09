@@ -19,6 +19,10 @@ namespace ParkingProject.Services
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext _context;
 
+        public UserService()
+        {
+        }
+
         public UserService(
             UserManager<User> userManager,
             IConfiguration configuration,
@@ -118,6 +122,16 @@ namespace ParkingProject.Services
             };
         }
 
+        public bool MethodForTest(bool testValue)
+        {
+            if (testValue == true){
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
+
         public async Task<UserRegisterResponse> RegisterUserAsync(UserRegisterRequest model)
         {
             if (model == null)
@@ -132,19 +146,11 @@ namespace ParkingProject.Services
                     Errors = new[] { "Confirm password doesn't match the password" }
                 };
             }
-            var listCars = new List<Car>();
-            if (model.CarId != null)
-            {
-                Car car = null;
-                car = _context.Cars.FirstOrDefault(e => e.Id == model.CarId);
-                listCars.Add(car);
-            }
 
             var identityUser = new User
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                Cars = listCars,
             };
 
             var result = await _userManager.CreateAsync(identityUser, model.Password);

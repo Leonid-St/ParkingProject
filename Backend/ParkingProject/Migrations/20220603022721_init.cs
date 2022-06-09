@@ -52,7 +52,7 @@ namespace ParkingProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -209,10 +209,12 @@ namespace ParkingProject.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ParkingCost = table.Column<float>(type: "real", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParkingCost = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -222,7 +224,7 @@ namespace ParkingProject.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,6 +253,7 @@ namespace ParkingProject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    BrandName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -270,8 +273,11 @@ namespace ParkingProject.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParkingStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ParkingCost = table.Column<float>(type: "real", nullable: false),
                     DateEntry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpectedDateExit = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActualDateExit = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -290,7 +296,7 @@ namespace ParkingProject.Migrations
             migrationBuilder.InsertData(
                 table: "Operators",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("7c339ae0-91e2-4ec1-8b67-709fe391f80c"), 0, "2cad9548-2ce6-466c-8d19-aac15da6c57b", null, false, false, null, "Leonid", null, null, "1234", null, null, false, null, false, null });
+                values: new object[] { new Guid("48f8274e-dfd6-4df8-b0ef-65b0180473cd"), 0, "0ea9616b-2e03-4a62-a97f-d8305b9780cf", null, false, false, null, "Leonid", null, null, "1234", null, null, false, null, false, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

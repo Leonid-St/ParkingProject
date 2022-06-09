@@ -8,8 +8,6 @@ namespace ParkingProject.Models
 
         public string UserName { get; set; }
 
-        public Guid? CarId { get; set; }
-
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }

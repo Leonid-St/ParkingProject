@@ -9,7 +9,7 @@ namespace ParkingProject.Database
     {
         public Guid Id { get; set; }
 
-        public string BrandName { get; set; }
+        public string Name { get; set; }
 
         public List<Model>? ListModels { get; set; }
     }

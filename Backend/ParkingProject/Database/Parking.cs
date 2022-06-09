@@ -11,9 +11,14 @@ namespace ParkingProject.Database
 
         public Guid UserId { get; set; }
 
+        public string? UserName { get; set; }
+
         public Guid CarId { get; set; }
 
+
         public ParkingState ? ParkingState { get; set; }
+
+        public float ParkingCost { get; set; }
 
         public DateTime ? DateEntry { get; set; }
 

@@ -8,7 +8,7 @@ namespace ParkingProject.Models
 {
     public class BrandPostRequest
     {
-        public string BrandName { get; set; }
+        public string Name { get; set; }
 
         public List<Model>? ListModels { get; set; }
     }

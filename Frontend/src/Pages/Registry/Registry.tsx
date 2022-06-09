@@ -27,8 +27,8 @@ const Registry: React.FunctionComponent = () => {
             const registryDetails: IRegistryRequest = {
                 email: email,
                 userName: username,
-                brand:brandAuto,
-                model:modelAuto,
+                brand: brandAuto,
+                model: modelAuto,
                 password: password,
                 confirmPassword: confirmPassword
             };
@@ -68,49 +68,33 @@ const Registry: React.FunctionComponent = () => {
             <Form>
 
                 <Stack gap={2} direction="vertical" className="justify-content-center pt-4 col-md-5 mx-auto">
-                    <h1 className='aqua shadow'>Регистрация</h1>
+                    <h1 className='aqua shadow'>Registration</h1>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label className='aqua shadow'>Почта</Form.Label>
-                        <Form.Control type="email" placeholder="Введите почту"
+                        <Form.Label className='aqua shadow'>email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email"
                             name="email"
                             onChange={e => setEmail(e.target.value)}
                             value={email} />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Имя пользователя</Form.Label>
-                        <Form.Control type="text" placeholder="Введите имя пользователя"
+                        <Form.Label className='aqua shadow'>Username</Form.Label>
+                        <Form.Control type="text" placeholder="Enter Username"
                             name="username"
                             onChange={e => setUsername(e.target.value)}
                             value={username}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Бред машины</Form.Label>
-                        <Form.Control type="text" placeholder="Введите бред машины"
-                            name="username"
-                            onChange={e => setBrandAuto(e.target.value)}
-                            value={brandAuto}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Марка</Form.Label>
-                        <Form.Control type="text" placeholder="Введите модель машины"
-                            name="username"
-                            onChange={e => setModelAuto(e.target.value)}
-                            value={modelAuto}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label className='aqua shadow'>Пароль</Form.Label>
-                        <Form.Control type="password" placeholder="Введите пароль"
+                        <Form.Label className='aqua shadow'>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter Password"
                             name="password"
                             onChange={e => setPassword(e.target.value)}
                             value={password}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" >
-                        <Form.Label className='aqua shadow'>Подтверждение пароля</Form.Label>
-                        <Form.Control type="password" placeholder="Введите подтверждение пароля"
+                        <Form.Label className='aqua shadow'>Confirm password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter password confirmation"
                             name="confirmPassword"
                             onChange={e => setConfirmPassword(e.target.value)}
                             value={confirmPassword}
@@ -118,11 +102,11 @@ const Registry: React.FunctionComponent = () => {
                     </Form.Group>
                     <Button variant="btn btn-outline-info mt-3" type="submit"
                         onClick={submitHandler}>
-                        Зарегестрироваться
+                        Sign up
                     </Button>
                     <Link to="/">
                         <Button variant="btn btn-outline-info ">
-                            Вернутся на главную страницу
+                            Back to the welcom page
                         </Button>
                     </Link>
 

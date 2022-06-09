@@ -24,9 +24,9 @@ namespace ParkingProject.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Brand>> Get()
         {
-            var model = _context.Models.ToList();
+            var models = _context.Models.ToList();
 
-            return Ok(model);
+            return Ok(models);
         }
 
         [HttpGet("{id}")]
@@ -42,32 +42,40 @@ namespace ParkingProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Model> Post([FromBody] ModalPostRequest modalPostRequest)
+        public ActionResult<Model> Post([FromBody] ModelPostRequest modelPostRequest)
         {
             var id = Guid.NewGuid();
+            var brand = _context.Brands.FirstOrDefault(e => e.Name == modelPostRequest.BrandName);
             var model = new Model
             {
                 Id = id,
-                ModelName = modalPostRequest.ModelName,
-                BrandId = modalPostRequest?.BrandId,
+                ModelName = modelPostRequest.ModelName,
+                BrandId = brand.Id,
+                BrandName = brand.Name,
             };
-
+            if (brand.ListModels == null)
+            {
+                brand.ListModels = new List<Model>();
+            };
+            brand.ListModels.Add(model);
+            _context.Update(brand);
             _context.Models.Add(model);
             _context.SaveChanges();
 
             return Ok(model);
         }
 
-      /*  public ActionResult Edit(Model newModal)
+        [HttpPost("EDIT")]
+        public ActionResult<Model> Edit(Model newModal)
         {
             var model = _context.Models.FirstOrDefault(e => e.Id == newModal.Id);
             if (model != null)
             {
-                _context.Models.Update(model);
+                _context.Models.Update(newModal);
                 return Ok();
             }
-            return NoContent();
-        }*/
+            return BadRequest();
+        }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
@@ -81,7 +89,7 @@ namespace ParkingProject.Controllers
             _context.Models.Remove(model);
             _context.SaveChanges();
 
-            return NoContent();
+            return Ok();
         }
     }
 }

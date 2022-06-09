@@ -1,8 +1,11 @@
 
-export default interface IModel {
+interface IModel {
     id: string;
 
     brandId: string;
 
-    ModelName: string;
+    brandName: string;
+
+    modelName: string;
 }
+export default IModel;

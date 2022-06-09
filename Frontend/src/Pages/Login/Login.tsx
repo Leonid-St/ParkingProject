@@ -28,14 +28,12 @@ const Login: React.FunctionComponent = () => {
                     dispatch(setToken(response?.token));
                     dispatch(setIsOperator(response?.isOperator));
                     localStorage.setItem("token", JSON.stringify(response.token));
-                    if (!response?.isOperator) {
-                        let userInfo: Promise<IUserInfo | null> = api.auth.getUserInfo();
-                        userInfo.then(user => {
-                            if (user) {
-                                dispatch(setUser(user));
-                            }
-                        });
-                    }
+                    let userInfo: Promise<IUserInfo | null> = api.auth.getUserInfo();
+                    userInfo.then(user => {
+                        if (user) {
+                            dispatch(setUser(user));
+                        }
+                    });
                     history.push("/home");
                 }
 
@@ -46,36 +44,33 @@ const Login: React.FunctionComponent = () => {
     };
 
     return (
-
         <Container>
-
             <Form>
-
                 <Stack gap={3} direction="vertical" className="justify-content-center pt-4 col-md-5 mx-auto">
-                    <h1 className='aqua shadow'>Вход</h1>
+                    <h1 className='aqua shadow'>LogIn</h1>
                     <Form.Group className="mb-3 aqua shadow" controlId="formBasicEmail">
-                        <Form.Label>Почта</Form.Label>
-                        <Form.Control type="email" placeholder="Введите почту"
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter your email"
                             name="email"
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={(e: any) => setEmail(e.target.value)}
                             value={email}
                         />
                     </Form.Group>
                     <Form.Group className="aqua shadow mb-3" controlId="formBasicPassword">
-                        <Form.Label>Пароль</Form.Label>
-                        <Form.Control type="password" placeholder="Введите пароль"
-                            onChange={e => setPassword(e.target.value)}
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter your password"
+                            onChange={(e: any) => setPassword(e.target.value)}
                             value={password}
                             name="password"
                         />
                     </Form.Group >
                     <Button variant="btn btn-outline-info mt-3" type="submit"
                         onClick={submitHandler}>
-                        Войти
+                        logIn
                     </Button>
                     <Link to="/" >
                         <Button variant="btn btn-outline-info ">
-                            Вернутся на главную страницу
+                            Back to the welcom page
                         </Button>
                     </Link>
                 </Stack>

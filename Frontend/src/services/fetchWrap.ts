@@ -51,13 +51,55 @@ function post<TReques, TResponse>(url: string, body: TReques): Promise<TResponse
 
         });
 }
+//TODO res - > edit
+// function put(url:string):Promise<T> {
+//     return new Promise<T>(
+//         (resolve, reject) => {
+//             let headers = new Headers({
+//                 "Content-Type": "application/json"
+//             });
+//             let token: IJwtToken | null = getTokenFromLocalStorage();
+//             if (token != null) {
+//                 headers.append("Authorization", "Bearer " + token.token,);
+//             }
+//             fetch(url, {
+//                 method: "PUT",
+//                 headers,
+//                 //body: JSON.stringify(body),
+//             }).then(
+//                 (response) => response.ok ? resolve() : reject(new Error("Something awful happened:" + response.status)))
+//                 .then((response: any) => {
+//                     resolve();
+//                 }).catch((reason) => {
+//                     reject(reason);
+//                 });
 
-function patch() {
+//         });
+// }
 
+function _delete(url: string): Promise<void> {
+    return new Promise<void>(
+        (resolve, reject) => {
+            let headers = new Headers({
+                "Content-Type": "application/json"
+            });
+            let token: IJwtToken | null = getTokenFromLocalStorage();
+            if (token != null) {
+                headers.append("Authorization", "Bearer " + token.token,);
+            }
+            fetch(url, {
+                method: "DELETE",
+                headers,
+                //body: JSON.stringify(body),
+            }).then(
+                (response) => response.ok ? resolve() : reject(new Error("Something awful happened:" + response.status)))
+                .then((response: any) => {
+                    resolve();
+                }).catch((reason) => {
+                    reject(reason);
+                });
+
+        });
 }
 
-function _delete() {
-
-}
-
-export { _delete as delete, get, post, patch };
+export { _delete, get, post };

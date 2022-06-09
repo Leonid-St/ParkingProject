@@ -10,7 +10,7 @@ using ParkingProject.Database;
 namespace ParkingProject.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220511025432_init")]
+    [Migration("20220603022721_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace ParkingProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BrandName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -145,13 +145,19 @@ namespace ParkingProject.Migrations
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ModelId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ModelName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("ParkingCost")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -191,6 +197,9 @@ namespace ParkingProject.Migrations
 
                     b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModelName")
                         .HasColumnType("nvarchar(max)");
@@ -263,9 +272,9 @@ namespace ParkingProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7c339ae0-91e2-4ec1-8b67-709fe391f80c"),
+                            Id = new Guid("48f8274e-dfd6-4df8-b0ef-65b0180473cd"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2cad9548-2ce6-466c-8d19-aac15da6c57b",
+                            ConcurrencyStamp = "0ea9616b-2e03-4a62-a97f-d8305b9780cf",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Leonid",
@@ -287,17 +296,26 @@ namespace ParkingProject.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CarName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DateEntry")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ExpectedDateExit")
                         .HasColumnType("datetime2");
 
+                    b.Property<float>("ParkingCost")
+                        .HasColumnType("real");
+
                     b.Property<Guid?>("ParkingStateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -472,7 +490,9 @@ namespace ParkingProject.Migrations
                 {
                     b.HasOne("ParkingProject.Database.User", null)
                         .WithMany("Cars")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ParkingProject.Database.DateEntryAndExit", b =>

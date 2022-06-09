@@ -1,16 +1,20 @@
+import ICar from "./ICar";
+import IParkingState from "./IParkingState";
+
 //TODO MODEL !
-export default  interface Parking {}
-//      id:string; 
+interface IParking {
+    id: string;
 
-//      User User { get; set; }
+    userId: string;
 
-//      Car Car { get; set; }
+    carId:string;
 
-//      ParkingState ? ParkingState { get; set; }
+    parkingState?: IParkingState;
 
-//     public DateTime ? DateEntry { get; set; }
+    dateEntry?: Date;
 
-//     public DateTime ? ExpectedDateExit { get; set; }
+    expectedDateExit?: Date;
 
-//     public DateTime ? ActualDateExit { get; set; }
-// }
+    actualDateExit?: Date;
+}
+export default IParking;
