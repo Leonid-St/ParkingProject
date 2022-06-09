@@ -7,14 +7,14 @@ interface IParking {
 
     userId: string;
 
-    Car?: ICar;
+    carId:string;
 
     parkingState?: IParkingState;
 
     dateEntry?: Date;
 
-    ExpectedDateExit?: Date;
+    expectedDateExit?: Date;
 
-    ActualDateExit?: Date;
+    actualDateExit?: Date;
 }
 export default IParking;

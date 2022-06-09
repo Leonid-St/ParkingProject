@@ -39,7 +39,7 @@ const PersonalPage: React.FunctionComponent = () => {
     let [modelsList, setModelsList] = useState<IModel[]>();
     let [carsList, setCarsList] = useState<ICar[]>();
     let [parkingsList, setParkingsList] = useState<IParking[]>();
-    let [editing, setEditing] = useState<boolean>(true);
+    let [editing, setEditing] = useState<boolean>(false);
     const [personalList, setPersonalList] = useState<personalModel[]>([]);
     let history = useHistory();
     let dispatch = useAppDispatch();
@@ -94,7 +94,7 @@ const PersonalPage: React.FunctionComponent = () => {
             }
             return [];
         }));
-    }, [brandsList, carsList, modelsList])
+    }, [brandsList, carsList, modelsList]);
     const handleRowInserting = (e: DataGridRowInsertingEvent<personalModel>) => {
         console.log(e.data);
         if (e.data && userId) {
@@ -107,30 +107,6 @@ const PersonalPage: React.FunctionComponent = () => {
 
     };
 
-    // const handleRowInsertingBrand = (e: DataGridRowInsertingEvent<IBrand>) => {
-    //     if (e.data) {
-    //         api.brand.postNewBrand(e.data);
-    //     }
-
-    // };
-    // const handleRowInsertingCars = (e: DataGridRowInsertingEvent<ICar>) => {
-    //     if (e.data) {
-    //         api.car.postNewCar(e.data);
-    //     }
-
-    // };
-    // const handleRowRemovingModels = (e: DataGridRowInsertingEvent<IModel>) => {
-    //     if (e.data) {
-    //         api.models._deleteModels(e.data);
-    //     }
-
-    // };
-    // const handleRowRemovingBrands = (e: DataGridRowInsertingEvent<IBrand>) => {
-    //     if (e.data) {
-    //         api.brand._deleteBrand(e.data);
-    //     }
-
-    // };
     const dataSourceModels = useMemo(() => {
         const store = new CustomStore({
             key: "id",
@@ -188,8 +164,8 @@ const PersonalPage: React.FunctionComponent = () => {
                                 //onRowRemoved={handleRowRemovingBrands}
                                 // onRowUpdating={this.handleRowUpdating}
                                 // onRowPrepared={this.handleRowPrepared}
-                                // onEditingStart={this.onEditingStart}
-                                //onEditCanceling={() => this.setState({ editing: true })}
+                                onEditingStart={()=>{setEditing(true);}}
+                                onEditCanceling={() => {setEditing(false);}}
                                 allowColumnResizing
                             // onEditorPreparing={this.onEditorPreparing}
                             >
@@ -218,7 +194,7 @@ const PersonalPage: React.FunctionComponent = () => {
                                     formItem={{ visible: false }}
                                     dataField="carId"
                                     caption="carId"
-                                    allowSorting={false}
+                                    allowSorting={true}
 
                                 >
                                     <Lookup dataSource={carsList}
@@ -230,20 +206,20 @@ const PersonalPage: React.FunctionComponent = () => {
                                     <RequiredRule />
                                 </Column>
                                 <Column
-                                    dataField="model"
-                                    caption="model"
-                                    allowSorting={false}
+                                    dataField="modelName"
+                                    caption="modelName"
+                                    allowSorting={true}
                                 >
                                     <Lookup dataSource={modelsList}
                                         displayExpr="modelName"
-                                        valueExpr="id"
+                                        valueExpr={`${editing?"id":"modelName"}`}
                                     />
                                     <RequiredRule />
                                 </Column>
                                 <Column
-                                    dataField="brand"
-                                    caption="brand"
-                                    allowSorting={false}
+                                    dataField="brandName"
+                                    caption="brandName"
+                                    allowSorting={true}
                                 >
                                     <Lookup dataSource={brandsList}
                                         displayExpr="name"

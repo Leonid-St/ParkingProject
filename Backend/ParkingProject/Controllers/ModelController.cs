@@ -65,7 +65,7 @@ namespace ParkingProject.Controllers
             return Ok(model);
         }
 
-       /* [HttpPost("EDIT")]
+        [HttpPost("EDIT")]
         public ActionResult<Model> Edit(Model newModal)
         {
             var model = _context.Models.FirstOrDefault(e => e.Id == newModal.Id);
@@ -75,7 +75,7 @@ namespace ParkingProject.Controllers
                 return Ok();
             }
             return BadRequest();
-        }*/
+        }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)

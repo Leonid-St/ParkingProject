@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Form, Button, Container, Stack } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setIsOperator, setToken, setUser } from "../../redux/slices/userSlice";
 import IUserInfo from "../../Models/IUserInfo";
 import api from "../../services/api";
 import ILoginRequest from "../../Models/ILoginRequest";
-import { DataGrid } from "devextreme-react";
+import { DataGrid, DateBox, Popup } from "devextreme-react";
 import {
     Column,
     Editing,
@@ -28,6 +28,8 @@ import DataGridRowInsertingEvent from "../../Models/DataGridInsertingEvents";
 import CustomStore from "devextreme/data/custom_store";
 import DataSource from "devextreme/data/data_source";
 import IRequestPostModel from "../../Models/RequestPostModel";
+import { DropDownOptions } from "devextreme-react/autocomplete";
+import IParkingRequest from "../../Models/ParckingRequest";
 
 const OperatorPage: React.FunctionComponent = () => {
 
@@ -36,6 +38,8 @@ const OperatorPage: React.FunctionComponent = () => {
     let [carsList, setCarsList] = useState<ICar[]>();
     let [parkingsList, setParkingsList] = useState<IParking[]>();
     let [editing, setEditing] = useState<boolean>(true);
+    const [popVisibleParking, setPopVisibleParking] = useState<boolean>();
+    const userId = useAppSelector(state => state.user.userInfo?.id);
     let history = useHistory();
     let dispatch = useAppDispatch();
 
@@ -115,8 +119,19 @@ const OperatorPage: React.FunctionComponent = () => {
         console.log(a);
 
     }
+    const handleRowInsertingParcking = (e: IParkingRequest) => {
+        if (e) {
+            api.parking.postNewParking(e);
+        }
+    }
+    const handleRowRemovingParking = (e: IParking) => {
+        if (e) {
+            api.parking.deleteParking(e);
+        }
+    }
+    
     const onValueChangedLookupCars = (e: any) => {
-        console.log(e);
+        console.log(e.data);
     }
     const dataSourceModels = useMemo(() => {
         const store = new CustomStore({
@@ -200,14 +215,14 @@ const OperatorPage: React.FunctionComponent = () => {
                                                 formItem={{ visible: false }}
                                                 dataField="id"
                                                 caption="id"
-                                                allowSorting={false}
+                                                allowSorting={true}
 
                                             >
                                             </Column>
                                             <Column
                                                 dataField="name"
                                                 caption="name"
-                                                allowSorting={false}
+                                                allowSorting={true}
 
                                             >
                                                 <RequiredRule />
@@ -260,7 +275,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                             formItem={{ visible: false }}
                                             dataField="id"
                                             caption="id"
-                                            allowSorting={false}
+                                            allowSorting={true}
 
                                         >
                                         </Column>
@@ -286,7 +301,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         </Column>
                                         <Column dataField="modelName"
                                             caption="modelName"
-                                            allowSorting={false}>
+                                            allowSorting={true}>
                                             <RequiredRule />
                                         </Column>
                                         {/* <MasterDetail enabled component={RolesInfo} /> */}
@@ -334,14 +349,14 @@ const OperatorPage: React.FunctionComponent = () => {
                                             formItem={{ visible: false }}
                                             dataField="id"
                                             caption="id"
-                                            allowSorting={false}
+                                            allowSorting={true}
 
                                         >
                                             <RequiredRule />
                                         </Column>
                                         <Column dataField="brandName"
                                             caption="brandName"
-                                            allowSorting={false}>
+                                            allowSorting={true}>
                                             <Lookup dataSource={brandsList}
                                                 displayExpr="name"
                                                 valueExpr="name"
@@ -351,7 +366,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         </Column>
                                         <Column dataField="modelName"
                                             caption="modelName"
-                                            allowSorting={false}>
+                                            allowSorting={true}>
                                             <Lookup dataSource={modelsList}
                                                 displayExpr="modelName"
                                                 valueExpr="modelName"
@@ -361,7 +376,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                         <Column
                                             dataField="parkingCost"
                                             caption="parkingCost"
-                                            allowSorting={false}
+                                            allowSorting={true}
                                         >
                                             {/* <Lookup
                         dataSource={distributionSchemes}
@@ -380,6 +395,26 @@ const OperatorPage: React.FunctionComponent = () => {
                             label: "Parking",
                             component: <> <Form>
                                 <Stack gap={3} direction="vertical" className="justify-content-center ">
+                                    {/* <Popup
+                                        visible={popVisibleParking}
+                                        onHiding={() => { setPopVisibleParking(false); }}
+                                        dragEnabled={false}
+                                        closeOnOutsideClick={true}
+                                        showCloseButton={false}
+                                        showTitle={true}
+                                        title="Information"
+                                        container=".dx-viewport"
+                                        width={300}
+                                        height={280}
+                                    >
+                                        <Lookup
+                                            //items={data ?? undefined}
+                                            displayExpr="carId"
+                                        // defaultValue={cars[0] ? cars[0]! : undefined}
+                                        >
+                                            <DropDownOptions showTitle={false} />
+                                        </Lookup>
+                                    </Popup> */}
                                     <DataGrid
                                         className={"opacity"}
                                         dataSource={parkingsList}
@@ -388,10 +423,20 @@ const OperatorPage: React.FunctionComponent = () => {
                                         showBorders
                                         rowAlternationEnabled
                                         // className={styles['receivers-grid']}
-                                        // onRowInserting={this.handleRowInserting}
-                                        // onRowRemoved={this.handleRowRemoving}
+                                        onRowInserting={(e) => {
+                                            console.log(e.data);
+                                            if (userId) {
+                                                handleRowInsertingParcking({
+                                                    userId: userId,
+                                                    carId: e.data.carId,
+                                                    expectedDateExit: e.data.expectedDateExit ?? undefined
+                                                });
+                                            }
+
+                                        }}
+                                        onRowRemoved={(e)=>{handleRowRemovingParking(e.data)}}
                                         // onRowUpdating={this.handleRowUpdating}
-                                        // onRowPrepared={this.handleRowPrepared}
+                                        //onRowPrepared={this.handleRowPrepared}
                                         // onEditingStart={this.onEditingStart}
                                         // onEditCanceling={() => this.setState({ editing: true })}
                                         allowColumnResizing
@@ -406,6 +451,7 @@ const OperatorPage: React.FunctionComponent = () => {
                                             useIcons
                                             confirmDelete
                                             mode="popup"
+
                                         />
 
                                         <Paging defaultPageSize={10} />
@@ -414,14 +460,14 @@ const OperatorPage: React.FunctionComponent = () => {
                                             formItem={{ visible: false }}
                                             dataField="id"
                                             caption="id"
-                                            allowSorting={false}
+                                            allowSorting={true}
 
                                         >
                                             <RequiredRule />
                                         </Column>
                                         <Column dataField="carId"
                                             caption="carId"
-                                            allowSorting={false}>
+                                            allowSorting={true}>
                                             <Lookup dataSource={carsList}
                                                 displayExpr="id"
                                                 valueExpr="id" />
@@ -429,29 +475,35 @@ const OperatorPage: React.FunctionComponent = () => {
                                         </Column>
                                         <Column dataField="dateEntry"
                                             caption="dateEntry"
-                                            allowSorting={false}>
+                                            allowSorting={true}
+                                            dataType="date"
+                                            formItem={{ visible: false }}
+                                        >
+
+
                                             {/* <Lookup dataSource={tasks}
                         displayExpr="name"
                         valueExpr="id" /> */}
-                                            <RequiredRule />
                                         </Column>
                                         <Column dataField="expectedDateExit"
                                             caption="expectedDateExit"
-                                            allowSorting={false}>
+                                            dataType="date"
+                                            allowSorting={true}>
 
                                             <RequiredRule />
                                         </Column>
                                         <Column
+                                            formItem={{ visible: false }}
                                             dataField="actualDateExit"
                                             caption="actualDateExit"
-                                            allowSorting={false}
+                                            allowSorting={true}
+                                            dataType="date"
                                         >
                                             {/* <Lookup
                         dataSource={distributionSchemes}
                         displayExpr="name"
                         valueExpr="id"
                     /> */}
-                                            <RequiredRule />
                                         </Column>
                                         {/* <MasterDetail enabled component={RolesInfo} /> */}
                                         <Scrolling useNative />

@@ -59,17 +59,7 @@ namespace ParkingProject.Controllers
             return Ok(brand);
         }
 
-     /*   public ActionResult Edit(Brand newBrand)
-        {
-            var brand = _context.Brands.FirstOrDefault(e => e.Id == newBrand.Id);
-            if (brand != null)
-            {
-                _context.Brands.Update(brand);
-                return Ok();
-            }
-            return NoContent();
-        }
-*/
+     
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
@@ -88,46 +78,6 @@ namespace ParkingProject.Controllers
         }
     }
 
-    // GET: BrandController/Edit/5
-    /*  public ActionResult Edit(int id)
-      {
-          return View();
-      }
-
-      // POST: BrandController/Edit/5
-      [HttpPost]
-      [ValidateAntiForgeryToken]
-      public ActionResult Edit(int id, IFormCollection collection)
-      {
-          try
-          {
-              return RedirectToAction(nameof(Index));
-          }
-          catch
-          {
-              return View();
-          }
-      }
-
-      // GET: BrandController/Delete/5
-      public ActionResult Delete(int id)
-      {
-          return View();
-      }
-
-      // POST: BrandController/Delete/5
-      [HttpPost]
-      [ValidateAntiForgeryToken]
-      public ActionResult Delete(int id, IFormCollection collection)
-      {
-          try
-          {
-              return RedirectToAction(nameof(Index));
-          }
-          catch
-          {
-              return View();
-          }
-      }*/
+   
 
 }

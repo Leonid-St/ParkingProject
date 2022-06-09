@@ -16,10 +16,10 @@ const NavbarHome: React.FunctionComponent = () => {
                             </Nav>
                             <Nav>
                                 {email ? <NavDropdown title={email} id="collasible-nav-dropdown">
-                                    <NavDropdown.Item href="/auth/Logout">Выйти</NavDropdown.Item>
-                                    <NavDropdown.Item href="/home/PersonalPage ">Личный кабинет</NavDropdown.Item>
-                                </NavDropdown> : <><Nav.Link href="/auth/login">Войти</Nav.Link>
-                                    <Nav.Link href="/auth/register">Зарегестрироваться</Nav.Link> </>}
+                                    <NavDropdown.Item href="/auth/Logout">Log out</NavDropdown.Item>
+                                    <NavDropdown.Item href="/home/PersonalPage ">My Account</NavDropdown.Item>
+                                </NavDropdown> : <><Nav.Link href="/auth/login">Log In</Nav.Link>
+                                    <Nav.Link href="/auth/register">Sign up</Nav.Link> </>}
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

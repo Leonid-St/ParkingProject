@@ -45,16 +45,38 @@ namespace ParkingProject.Controllers
         {
             var id = Guid.NewGuid();
             var car = _context.Cars.FirstOrDefault(e => e.Id == queryParking.CarId);
-            var user = _context.Users.FirstOrDefault(e => e.Id == queryParking.UserId);
-            var parking = new Parking {
+            dynamic user = _context.Users.FirstOrDefault(e => e.Id == queryParking.UserId);
+            dynamic parking;
+            ParkingState parkingState = new ParkingState
+            { Id = Guid.NewGuid(), 
+                Inside = true ,
+            };
+            if (user ==null){
+                 user = _context.Operators.FirstOrDefault(e => e.Id == queryParking.UserId);
+                parking = new Parking
+                {
+                    Id = id,
+                    CarId = queryParking.CarId,
+                    UserId = queryParking.UserId,
+                    UserName = user.Name,
+                    DateEntry = DateTime.Now,
+                    ExpectedDateExit = queryParking?.ExpectedDateExit,
+                    ParkingState = parkingState,
+                };
+            }
+            else
+            {
+ parking = new Parking {
                 Id = id,
                 CarId = queryParking.CarId,
                 UserId = queryParking.UserId,
                 UserName = user.UserName,
                 DateEntry = DateTime.Now,
-                ExpectedDateExit = queryParking.ExpectedDateExit,
-                //ParkingState = { Id = Guid.NewGuid(), Inside = true},
+                ExpectedDateExit = queryParking?.ExpectedDateExit,
+                ParkingState = parkingState,
             };
+            }
+            
 
             _context.Parkings.Add(parking);
             _context.SaveChanges();

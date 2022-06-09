@@ -5,16 +5,16 @@ export const Welcome: React.FC = () => {
     return (
         <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
             <h1 className='aqua shadow'>Parking Project</h1>
-            <h3 className="aqua pt-1">Место, где вы можете оставить свой автомобиль</h3>
+            <h3 className="aqua pt-1">A place where you can leave your car</h3>
             <Stack gap={4} direction="horizontal" className="justify-content-center pt-4">
                 <Link to="/auth/login" >
                     <Button size="lg" variant="px-3 btn-outline-info" >
-                        Вход
+                    SignIn 
                     </Button>
                 </Link>
                 <Link to="/auth/register">
                     <Button size="lg" variant="px-3 btn-outline-info">
-                        Регистрация
+                        SignUp
                     </Button>
                 </Link>
             </Stack>
